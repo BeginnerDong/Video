@@ -1,0 +1,305 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle":"custom",
+				"navigationBarTitleText": "首页",//设置页面标题文字
+				"onReachBottomDistance":100,
+				"app-plus": {
+				    "titleNView": false
+				}
+			}
+		}
+        ,{
+            "path" : "pages/detail/detail",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "详情"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/reply/reply",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "回复",
+						"backgroundColor":"#FAFAFA"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/classify/classify",
+            "style" : {
+				"app-plus": {
+				    "titleNView": false
+				}
+			}
+        }
+        ,{
+            "path" : "pages/search/search",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "搜索"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/category/category",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": ""
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/reward/reward",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "打赏",
+						"backgroundColor":"#f5f5f5"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/login/login",
+            "style" : {
+				"app-plus": {
+				    "titleNView": false
+				}
+			}
+        }
+        ,{
+            "path" : "pages/update/update",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "上传视频"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/updateClass/updateClass",
+            "style" : {
+				"app-plus": {
+				    "titleNView": false
+				}
+			}
+        }
+        ,{
+            "path" : "pages/square/square",
+            "style" : {
+				"app-plus": {
+				    "titleNView": false
+				}
+			}
+        }
+        ,{
+            "path" : "pages/publish/publish",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "发布创作需求"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/squareDetail/squareDetail",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "详情"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/news/news",
+            "style" : {
+				"app-plus": {
+				    "titleNView": false
+				}
+			}
+        }
+        ,{
+            "path" : "pages/newsReply/newsReply",
+            "style" : {
+				"app-plus": {
+				    "titleNView": false
+				}
+			}
+        }
+        ,{
+            "path" : "pages/user/user",
+            "style" : {
+				"app-plus": {
+				    "titleNView": false
+				}
+			}
+        }
+        ,{
+            "path" : "pages/agreement/agreement",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "平台协议"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/balance/balance",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "余额"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/idea/idea",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "意见反馈"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/water/water",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "流水明细"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/withdrawal/withdrawal",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "提现"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/collection/collection",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "我收藏的"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/fans/fans",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "粉丝"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/follow/follow",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "我关注的"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/homepage/homepage",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "TA的主页"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/information/information",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "个人信息"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/modify/modify",
+            "style" : {
+				"app-plus": {
+				    "titleNView": false
+				}
+			}
+        }
+        ,{
+            "path" : "pages/phone/phone",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "编辑手机号"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/aboutUs/aboutUs",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "关于我们"
+				    }
+				}
+			}
+        }
+        ,{
+            "path" : "pages/VIP/VIP",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "会员"
+				    }
+				}
+			}
+        }
+    ],
+	"globalStyle": {
+		//"navigationStyle":"custom",
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "",
+		"navigationBarBackgroundColor": "#FFFFFF"
+	},
+	"condition": { //模式配置，仅开发期间生效
+		"current": 0, //当前激活的模式(list 的索引项)
+		"list": [{
+			"name": "", //模式名称
+			"path": "", //启动页面，必选
+			"query": "" //启动参数，在页面的onLoad函数里面得到
+		}]
+	}
+}

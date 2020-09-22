@@ -1,0 +1,177 @@
+/* #ifndef APP-NVUE */
+/* 设置全局样式 */
+/* (1) 页面高度100%,默认字体28rpx,默认行高1.4,背景颜色 */
+page{
+	/* height: 100%; */
+	font-size: 28rpx;
+	line-height: 1.4;
+	color: #222;
+	/* background: #f5f5f5; */
+}
+
+button{border: 0;padding: 0;margin: 0;}
+button:after{border: 0;}
+
+/* (2) 图片默认100%宽度 */
+image{  width: 100%;height: 100%;box-sizing: border-box; display: block;}
+::-webkit-scrollbar{
+	display: none;
+}
+uni-button:after{border: 0;}
+/* uni-input{padding: 0!important;} */
+button{border-radius: initial;text-align: initial;font-size: 28rpx;}
+
+
+.w-70{width: 70%;}
+.w-90{width: 90%;}
+.h60{height: 60rpx;}
+.wh126{width: 126rpx;height: 126rpx;}
+.h126{height: 126rpx;}
+.o5{background-color: rgba(255,255,255,0.5);}
+
+.f5-2{height: 20rpx;background-color: #f5f5f5;}
+
+.px-25{padding-left: 25rpx;padding-right: 25rpx;}
+.mx-25{margin-left: 25rpx;margin-right: 25rpx;}
+
+.mask{background-color: #fff;border-radius: 10rpx;margin: auto;}
+
+
+/* #endif */
+/* 主色调 */
+/* 主背景颜色（橙色）*/
+.Mgb{background-color: #262626;}
+.Mgb1{background-color: #f1892c;}
+.bg-f5{background-color: #f5f5f5;}
+.bg-f7{background-color: #f7f7f7;}
+.bg-black{background: #000}
+.bg90{background-color: #909090;}
+.bg-c9{background-color: #c9c9c9;}
+/* 主点击背景颜色（淡橙色）*/
+
+/* 主字体颜色（橙色）*/
+.colorM{color: #262626;}
+.colorM1{color: #f1892c;}
+.colorR{color: #dc1515;}
+.colorS{color: #738A9B;}
+.color{color: #6295D4;}
+.colorO{color: #FF590C;}
+
+.borderM{border: 1px solid #262626;}
+.borderM1{border: 1px solid #f1892c;}
+
+
+.h20-1{height: 20rpx;background-color: #f5f4f9;}
+.f5Bj-H10{height: 10rpx; background: #f5f5f5;}
+.f5Bj-H20{ height: 20rpx; background: #f5f5f5;}
+
+.price,.price1{ color: #dc1515;}
+.price::before{content: "￥";}
+.price1::before{content: "￥";font-size: 26rpx;}
+.priceY{ color: #dc1515;}
+.priceY::after{content: "/月";}
+.priceV{ color: #dc1515;}
+.priceV::before{content: "会员:";font-size: 22rpx;}
+.priceIcon{width: 28rpx;height: 28rpx;margin-right: 8rpx;}
+.priceF{ color: #dc1515;}
+.priceF::before{content: "积分:";font-size: 24rpx;}
+.priceM::after{content: "元/㎡";}
+.yuanJia{ color: #999; font-size: 24rpx; text-decoration: line-through; }
+.yuanJia::before{content: "￥";}
+
+/* 阴影 */
+.shadowM{box-shadow: 0 0 6rpx 0 rgba(0,0,0,0.15);}
+.shadowT{box-shadow: 0 -6rpx 6rpx 0 rgba(0,0,0,0.05);}
+
+/* 返回按钮 */
+/* .head{height:var(--status-bar-height);} */
+
+/* 按钮 */
+.btn100-c{line-height: 100rpx;border-radius: 50rpx;margin: 0 auto;text-align: center;font-size:32rpx}
+.btn100{line-height: 100rpx;border-radius: 10rpx;margin: 0 auto;text-align: center;font-size:32rpx}
+.btn100-M{line-height: 100rpx;border-radius: 10rpx;margin: 0 auto;text-align: center;font-size:32rpx;border: 1px solid #262626;}
+.btn80-c{line-height: 80rpx;border-radius: 40rpx;margin: 0 auto;text-align: center;font-size:32rpx}
+.btn80{line-height: 80rpx;border-radius: 10rpx;margin: 0 auto;text-align: center;font-size:32rpx}
+.btn80-M{line-height: 80rpx;border-radius: 10rpx;margin: 0 auto;text-align: center;font-size:32rpx;border: 1px solid #262626;}
+.btn70-c{line-height: 70rpx;border-radius: 35rpx;margin: 0 auto;text-align: center;font-size:26rpx}
+.btn70{line-height: 70rpx;border-radius: 10rpx;margin: 0 auto;text-align: center;font-size:26rpx}
+.btn70-M{line-height: 70rpx;border-radius: 10rpx;margin: 0 auto;text-align: center;font-size:32rpx;border: 1px solid #262626;}
+.btn60-c{line-height: 60rpx;border-radius: 30rpx;margin: 0 auto;text-align: center;font-size:26rpx}
+.btn60{line-height: 60rpx;border-radius: 10rpx;margin: 0 auto;text-align: center;font-size:26rpx}
+.btn60-M{line-height: 60rpx;border-radius: 10rpx;margin: 0 auto;text-align: center;font-size:26rpx;border: 1px solid #262626;}
+.btn50-c{line-height: 50rpx;border-radius: 25rpx;margin: 0 auto;text-align: center;font-size:26rpx}
+.btn50{line-height: 50rpx;border-radius: 10rpx;margin: 0 auto;text-align: center;font-size:26rpx}
+.btn50-M{line-height: 50rpx;border-radius: 10rpx;margin: 0 auto;text-align: center;font-size:32rpx;border: 1px solid #262626;}
+.btn44-c{line-height: 44rpx;background-color: #262626;border-radius: 22rpx;color: #fff;font-size: 26rpx;text-align: center;display: inline-block;padding: 0 25rpx;height: 44rpx;}
+
+
+/* 列表导航 */
+.list{display: flex;align-items: center;background-color: #fff;position: sticky;top: 0;z-index:20}
+.list .li{font-size: 28rpx;color: #222;padding: 30rpx 0;text-align: center;position: relative;}
+.list .on{color: #262626;position: relative;}
+.list .on::before{content: '';width: 100%;height: 1px;position: absolute;bottom: 0;background-color: #262626;left: 0;}
+.list .on1::before{content: '';width: 50rpx;height: 8rpx;position: absolute;bottom: 10rpx;background-color: #262626;left: 50%;margin-left: -25rpx;border-radius: 4rpx;}
+
+
+/* 底部 */
+.footer{height: 100rpx;width:100%;position: fixed;bottom: 0;display: flex;justify-content: space-between;background-color: #fff;box-sizing: content-box;z-index: 99;box-shadow: 0 0 10rpx 0 rgba(0,0,0,0.12);}
+.footer .item{width: 50%;display: flex;flex-direction: column;align-items: center;font-size: 22rpx;justify-content: center;color: #22;}
+/* .footer .on{color: #262626;} */
+.footer .item image{margin-bottom: 10rpx;width: 50rpx;height: 49rpx;margin-top: 10rpx;}
+.footer .item:nth-child(2) image{width: 40rpx;height: 52rpx;}
+.footer .item:nth-child(3) image{width: 49rpx;height: 46rpx;}
+.footer .item:nth-child(4) image{width: 42rpx;height: 50rpx;}
+
+/* 搜索框 */
+input{font-size: 24rpx;flex: 1;padding-left: 20rpx;}
+
+
+
+/* 倒计时样式 */
+.timeTag{line-height: 42rpx;width: 50rpx;color: #262626;text-align: center;background-color: #EBEFF9;border-radius: 5rpx;display: block;margin: 0 10rpx;}
+
+/* 视频列表 */
+.box{width: 345rpx;}
+.box .img{width: 345rpx;height: 220rpx;}
+.box .txt{bottom: 0;left: 0;background-image: linear-gradient(to bottom,rgba(0,0,0,0) 20%,rgba(0,0,0,0.5));}
+.boxMask{background-color: rgba(0,0,0,0.5);}
+
+/* 表格 */
+.th,.tr,.th1,.tr1{display: flex;align-items: center;line-height: 1;border-bottom: 1px solid #e1e1e1;}
+.th{color: #999;}
+.td{width: 20%;text-align: center;padding: 20rpx 0;}
+.td:nth-child(1){width: 30%;text-align: left;}
+
+.th1{background-color: #FCF1EF;color: #666;}
+.td1{padding: 25rpx 0;text-align: center;width: 30%;}
+.td1:nth-child(1){border-right: 1px solid #e1e1e1;width: 70%;padding: 25rpx 20rpx;}
+
+/* 扫一扫 */
+.sys{right: 0;bottom: 25%;width: 123rpx;height: 136rpx;position: fixed;}
+
+
+/* 图标 */
+.back{width:22rpx;height: 35rpx;}
+.R-icon{width: 10rpx;height: 18rpx;}
+.fs-icon{width: 46rpx;height: 42rpx;}
+.sp-icon{width: 30rpx;height: 26rpx;}
+.pl-icon{width: 28rpx;height: 25rpx;}
+.gb-icon{width: 42rpx;height: 54rpx;}
+.wx-icon{width: 48rpx;height: 37rpx;}
+.qq-icon{width: 34rpx;height: 38rpx;}
+.xj-icon{width: 60rpx;height: 45rpx;}
+.dp-icon{width: 22rpx;height: 29rpx;}
+
+/* 标签 */
+.sign{line-height: 30rpx;font-size: 22rpx;color: #999;background-color: #EEEEEE;border-radius: 15rpx;padding: 0 10rpx;}
+
+.tag{font-size: 26rpx;background-color: #f5f5f5;line-height: 66rpx;border-radius: 33rpx;padding: 0 33rpx;display: inline-block;color: #666;margin-right: 30rpx;flex-shrink: 0;}
+
+/* 计数 */
+.jIcon1{width: 21rpx;height: 3rpx;}
+.jIcon2{width: 21rpx;height: 21rpx;}
+.count{border-radius: 8rpx;height: 70rpx;display: flex;align-items: center;justify-content: center;border: 1px solid #d5d5d5;}
+.countIcon{display: flex;align-items: center;justify-content: center;width: 70rpx;}
+.countNum{width: 120rpx;text-align: center;border-left: 1px solid #d5d5d5;border-right: 1px solid #d5d5d5;font-size: 28rpx;font-weight: normal;line-height: 70rpx;}
+.countIcon1{width: 35rpx;height: 4rpx;}
+.countIcon2{width: 30rpx;height: 30rpx;}
