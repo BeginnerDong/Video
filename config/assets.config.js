@@ -80,7 +80,7 @@ export default {
 	paginate: {
         count: 0,
         currentPage:1,
-        pagesize:5,
+        pagesize:10,
         is_page:true,
     },
 	

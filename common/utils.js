@@ -1,7 +1,57 @@
 import assetsConfig from "@/config/assets.config.js";
-
+import token from '@/common/token.js';
+import api from '@/apis/index.js';
 export default {
 	
+	uploadFile(filePath, name, formData, callback) {
+		var that = this;
+		uni.showLoading({
+			mask: true,
+			title: '上传中',
+		});
+		const c_callback = (res) => {
+			that.uploadFile(filePath, name, formData, callback);
+		};
+		console.log('uploadFile', formData)
+		if (formData.tokenFuncName) {
+			if (formData.refreshTokn) {
+				token[formData.tokenFuncName](c_callback, {
+					refreshToken: true
+				});
+			} else {
+				formData.token = token[formData.tokenFuncName](c_callback);
+			};
+			if (!formData.token) {
+				return;
+			};
+		};
+		uni.uploadFile({
+			url: 'http://106.12.155.217/video/public/index.php/api/v1/Base/FtpFile/upload',
+			filePath: filePath,
+			name: name,
+			formData: formData,
+			success: function(res) {
+				if (res.data) {
+					res.data = JSON.parse(res.data);
+				};
+				if (res.data.solely_code == '200000') {
+					token[formData.tokenFuncName](c_callback, {
+						refreshToken: true
+					});
+				} else {
+					callback && callback(res.data);
+				};
+			},
+			fail: function(err) {
+				uni.showToast({
+					title: '网络故障',
+					icon: 'fail',
+					duration: 2000,
+					mask: true,
+				});
+			}
+		})
+	},
 	
 
 	realPay(param, callback) {
@@ -667,17 +717,29 @@ export default {
 		var seperator1 = "-";
 		var seperator2 = ":";
 		var date = parseInt(date);
-		
-		
+	
+	
 		var date = new Date(date);
-		
+	
 		var month = date.getMonth() + 1;
 		var strDate = date.getDate();
+		var hour = date.getHours();
+		var min = date.getMinutes();
+		var sec = date.getSeconds();
 		if (month >= 1 && month <= 9) {
 			month = "0" + month;
 		}
 		if (strDate >= 0 && strDate <= 9) {
 			strDate = "0" + strDate;
+		}
+		if (hour >= 0 && hour <= 9) {
+			hour = "0" + hour;
+		}
+		if (min >= 0 && min <= 9) {
+			min = "0" + min;
+		}
+		if (sec >= 0 && sec <= 9) {
+			sec = "0" + sec;
 		}
 		if (type == "ym") {
 			// 转年月
@@ -695,6 +757,72 @@ export default {
 			var currentdate = date.getHours() + seperator2 + date.getMinutes() + seperator2 + date.getSeconds();
 		}
 		return currentdate;
+	},
+	
+	formatMsgTime(timespan) {
+		timespan=timespan.replace(/-/g, '/');
+		var timeStamp = this.timeToTimestamp(timespan)*1000
+		var dateTime = new Date(timespan);
+		console.log('dateTime',dateTime)
+		
+		//dateTime=dateTime.replace(/-/g, '/')
+		var year = dateTime.getFullYear();
+		var month = dateTime.getMonth() + 1;
+		var day = dateTime.getDate();
+		var hour = dateTime.getHours();
+		var minute = dateTime.getMinutes();
+		var second = dateTime.getSeconds();
+		
+		if (month >= 1 && month <= 9) {
+			month = "0" + month;
+		}
+		if (day >= 0 && day <= 9) {
+			day = "0" + day;
+		}
+		if (hour >= 0 && hour <= 9) {
+			hour = "0" + hour;
+		}
+		if (minute >= 0 && minute <= 9) {
+			minute = "0" + minute;
+		}
+		if (second >= 0 && second <= 9) {
+			second = "0" + second;
+		}
+		var now = Date.parse(new Date());
+		var milliseconds = 0;
+		var timeSpanStr;
+		milliseconds = now - timeStamp;
+		
+		now = this.timeto(now,'ymd-hms')
+		now = new Date(now);
+		console.log('now',now)
+		if (milliseconds <= 1000 * 60 * 1) {
+			timeSpanStr = '刚刚';
+		} else if (1000 * 60 * 1 < milliseconds && milliseconds <= 1000 * 60 * 60) {
+			timeSpanStr = Math.round((milliseconds / (1000 * 60))) + '分钟前';
+		} else if (1000 * 60 * 60 * 1 < milliseconds && milliseconds <= 1000 * 60 * 60 * 24) {
+			timeSpanStr = Math.round(milliseconds / (1000 * 60 * 60)) + '小时前';
+		} else if (1000 * 60 * 60 * 24 < milliseconds && milliseconds <= 1000 * 60 * 60 * 24 * 15) {
+			timeSpanStr = Math.round(milliseconds / (1000 * 60 * 60 * 24)) + '天前';
+		} else if (milliseconds > 1000 * 60 * 60 * 24 * 15 && year == now.getFullYear()) {
+			timeSpanStr = month + '-' + day + ' ' + hour + ':' + minute;
+		} else {
+			timeSpanStr = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
+		}
+		return timeSpanStr;
+	},
+	
+	likeNum(num) {
+	    if (num === 0) {
+	        num = 0;
+	    }
+	    else if (num > 9999 && num <= 9999999) {
+	        num = parseInt(num / 10000);
+	        num = parseInt(num) + "万";
+	    }
+
+	    return num;
+	
 	}
 
 }

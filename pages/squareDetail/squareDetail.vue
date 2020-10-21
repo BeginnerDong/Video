@@ -2,14 +2,17 @@
 	<view>
 		
 		<view class="video p-r">
-			<video src="" controls></video>
-			<view class="p-aXY">
-				<image src="../../static/images/squaredetails-img.png" mode=""></image>
+			<video id="myVideo"
+			objectFit="cover" 
+			@play="play"
+			:src="mainData.bannerImg&&mainData.bannerImg[0]?mainData.bannerImg[0].url:''" controls v-if="mainData.bannerImg&&mainData.bannerImg.length>0"></video>
+			<view class="p-aXY" v-if="mainData.bannerImg&&mainData.bannerImg.length==0">
+				<image :src="mainData.mainImg&&mainData.mainImg[0]?mainData.mainImg[0].url:''" mode=""></image>
 			</view>
 		</view>
 		
 		<view class="px-3">
-			<view class="font-32 font-w py-4">KK全民挑战：第七届老师校园青歌赛</view>
+			<view class="font-32 font-w py-4">{{mainData.name?mainData.name:''}}</view>
 			
 			<!-- 投视频 -->
 			<view  v-if="type==0">
@@ -21,10 +24,10 @@
 						<view class="font-30 pl-1">需求主题</view>
 					</view>
 					<view class="font-26 pb-4">
-						写出你上导航打发时间到时看是看大V顺丰速递卡的很科学从
+						{{mainData.description?mainData.description:''}}
 					</view>
 				</view>
-				<view>
+				<view v-if="mainData.bannerImg&&mainData.bannerImg.length==0">
 					<view class="flex py-2">
 						<view class="wh65 flex4 radius-5 shadowM">
 							<image src="../../static/images/squaredetails-icon1.png" class="wh30"></image>
@@ -32,7 +35,7 @@
 						<view class="font-30 pl-1">需求时间</view>
 					</view>
 					<view class="font-26 pb-4">
-						2020年8月30日 10点-2020年8月31日 10点
+						{{Utils.timeto(mainData.start_time,'ymd')}} - {{Utils.timeto(mainData.end_time,'ymd')}}
 					</view>
 				</view>
 				<view>
@@ -40,36 +43,15 @@
 						<view class="wh65 flex4 radius-5 shadowM">
 							<image src="../../static/images/squaredetails-icon2.png" class="wh30"></image>
 						</view>
-						<view class="font-30 pl-1">创作激励</view>
+						<view class="font-30 pl-1" v-if="mainData.bannerImg&&mainData.bannerImg.length==0">创作激励</view>
+						<view class="font-30 pl-1" v-if="mainData.bannerImg&&mainData.bannerImg.length>0">打赏</view>
 					</view>
-					<view class="font-26 pb-4">
-						选中视频将悬赏500灯泡
+					<view class="font-26 pb-4" v-if="mainData.bannerImg&&mainData.bannerImg.length==0">
+						选中视频将悬赏{{mainData.score}}灯泡
 					</view>
-				</view>
-			</view>
-			
-			<!-- 已报名 -->
-			<view v-else>
-				<view>
-					<view class="flex py-2">
-						<view class="wh65 flex4 radius-5 shadowM">
-							<image src="../../static/images/squaredetails-icon.png" class="wh30"></image>
-						</view>
-						<view class="font-30 pl-1">主题</view>
-					</view>
-					<view class="font-26 pb-4">
-						写出你上导航打发时间到时看是看大V顺丰速递卡的很科学从写出你上导航打发时间到时看是看大V顺丰速递卡的很科学从写出你上导航打发时间
-					</view>
-				</view>
-				<view>
-					<view class="flex py-2">
-						<view class="wh65 flex4 radius-5 shadowM">
-							<image src="../../static/images/squaredetails-icon2.png" class="wh30"></image>
-						</view>
-						<view class="font-30 pl-1">打赏</view>
-					</view>
-					<view class="font-26 pb-4">
-						观看次视频500灯泡
+					
+					<view class="font-26 pb-4" v-if="mainData.bannerImg&&mainData.bannerImg.length>0">
+						观看此视频需{{mainData.score}}灯泡
 					</view>
 				</view>
 			</view>
@@ -78,14 +60,26 @@
 		
 		<view style="height: 120rpx;"></view>
 		<!-- 投视频 -->
-		<view class="px-3 py-2 bT-e1 p-fX bottom-0" v-if="type==0">
-			<view class="btn80-c colorf Mgb"
-			@click="Router.navigateTo({route:{path:'/pages/update/update?type=1'}})">投视频</view>
+		<view class="px-3 py-2 bT-e1 p-fX bottom-0"
+		v-if="mainData.end_time>now&&mainData.bannerImg&&mainData.bannerImg.length==0&&mainData.message&&mainData.message.length==0"
+		
+		@click="Router.navigateTo({route:{path:'/pages/upload/upload?id='+mainData.id}})"
+		>
+			<view class="btn80-c colorf Mgb">投视频</view>
 		</view>
 		<!-- 已报名 -->
-		<view class="px-3 py-2 bT-e1 p-fX bottom-0" v-else>
-			<view class="btn80-c colorf Mgb"
-			@click="Router.navigateTo({route:{path:'/pages/reward/reward'}})">打赏</view>
+		<view class="px-3 py-2 bT-e1 p-fX bottom-0" 
+		@click="Router.navigateTo({route:{path:'/pages/reward/reward?id='+mainData.id+'&type=act'}})"
+		v-if="mainData.bannerImg&&mainData.bannerImg.length>0">
+			<view class="btn80-c colorf Mgb">打赏</view>
+		</view>
+		
+		<view class="px-3 py-2 bT-e1 p-fX bottom-0" v-if="mainData.end_time>now&&mainData.bannerImg&&mainData.bannerImg.length==0&&mainData.message&&mainData.message.length>0">
+			<view class="btn80-c bg-f5 color6">已报名</view>
+		</view>
+		
+		<view class="px-3 py-2 bT-e1 p-fX bottom-0" v-if="mainData.end_time<now&&mainData.bannerImg&&mainData.bannerImg.length==0">
+			<view class="btn80-c bg-f5 color6">已结束</view>
 		</view>
 		
 	</view>
@@ -96,16 +90,82 @@
 		data() {
 			return {
 				Router:this.$Router,
-				type:0
+				type:0,
+				mainData:{},
+				Utils:this.$Utils,
+				now:''
 			}
 		},
 		onLoad(options) {
 			const self = this;
-			if(options.type){
-				self.type = options.type;
+			self.now = Date.parse(new Date());
+			self.id = options.id;
+			self.$Utils.loadAll(['getMainData'], self);
+		},
+		onShow() {
+			const self = this;
+			if(uni.getStorageSync('hasDs')){
+				self.getMainData()
 			}
 		},
 		methods: {
+			
+			play(){
+				const self = this;
+				//self.videoContext = uni.createVideoContext('myVideo')
+				if(self.mainData.order.length==0){
+					self.Router.navigateTo({route:{path:'/pages/reward/reward?id='+self.mainData.id+'&type=act'}})
+				}else{
+					self.videoContext.play()
+				}
+			},	
+			
+			getMainData() {
+				var self = this;
+				var postData = {};
+				postData.searchItem = {
+					thirdapp_id: 2,
+					id:self.id
+				};
+				postData.getAfter = {
+					message:{
+						token:uni.getStorageSync('user_token'),
+						tableName:'Message',
+						middleKey:'id',
+						key:'relation_id',
+						searchItem:{
+							status:1,
+							type:1,
+							user_no:uni.getStorageSync('user_info').user_no
+						},
+						condition:'='
+					},
+					order:{
+						token:uni.getStorageSync('user_token'),
+						tableName:'Order',
+						middleKey:'id',
+						key:'act_id',
+						searchItem:{
+							status:1,
+							type:6,
+							pay_status:1,
+							user_no:uni.getStorageSync('user_info').user_no
+						},
+						condition:'='
+					}
+				};
+				var callback = function(res) {
+					if (res.info.data.length > 0) {
+						self.mainData = res.info.data[0];
+						if(self.mainData.bannerImg.length>0){
+							self.videoContext = uni.createVideoContext('myVideo')
+						}
+					};
+					uni.removeStorageSync('hasDs')
+					self.$Utils.finishFunc('getMainData');
+				};
+				self.$apis.activityGet(postData, callback);
+			},
 			
 		}
 	}

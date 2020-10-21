@@ -18,10 +18,10 @@ export default {
 		http.HTTP(allParams);
 	},
 
-	registerSuper(param, callback) {
+	register(param, callback) {
 
 		var allParams = {
-			url: 'Project/Solely/registerSuper',
+			url: 'Project/Solely/register',
 			type: 'post',
 			data: param,
 			sCallback: function(data) {
@@ -176,6 +176,20 @@ export default {
 		};
 		http.HTTP(allParams);
 	},
+	
+	articleAdd(param, callback) {
+		
+		var allParams = {
+			url: 'Common/Article/add',
+			type: 'post',
+			noToken: true,
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
 
 	userGet(param, callback) {
 		var allParams = {
@@ -302,12 +316,132 @@ export default {
 		};
 		http.HTTP(allParams);
 	},
+	
+	logAdd(param, callback) {
+		var allParams = {
+			url: 'Common/Log/add',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
 
-
+	logUpdate(param, callback) {
+		var allParams = {
+			url: 'Common/Log/update',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
+	logGet(param, callback) {
+		var allParams = {
+			url: 'Common/Log/get',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
+	messageAdd(param, callback) {
+		var allParams = {
+			url: 'Common/Message/add',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
+	messageUpdate(param, callback) {
+		var allParams = {
+			url: 'Common/Message/update',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
+	messageGet(param, callback) {
+		var allParams = {
+			url: 'Common/Message/get',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
+	activityGet(param, callback) {
+		var allParams = {
+			url: 'Common/Activity/get',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
+	activityUpdate(param, callback) {
+		var allParams = {
+			url: 'Common/Activity/update',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
+	activityAdd(param, callback) {
+		var allParams = {
+			url: 'Common/Activity/add',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
 	login(param, callback) {
 
 		var allParams = {
 			url: 'Func/Common/loginByUp',
+			type: 'post',
+			data: param,
+			sCallback: function(data) {
+				callback && callback(data);
+			}
+		};
+		http.HTTP(allParams);
+	},
+	
+	loginByUser(param, callback) {
+	
+		var allParams = {
+			url: 'Func/Common/loginByUser',
 			type: 'post',
 			data: param,
 			sCallback: function(data) {

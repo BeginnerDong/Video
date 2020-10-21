@@ -2,7 +2,7 @@
 	<view>
 		<view class="swiperPanel" @touchstart="startMove" @touchend="endMove">
 			<view class="swiperItem" v-for="(item, index) in swiperList" :key="index" :style="{transform: itemStyle[index].transform, zIndex: itemStyle[index].zIndex, opacity: itemStyle[index].opacity}">
-				<view class="children">
+				<view class="children" @click="$emit('clickItem',item)">
 					<image class="pic" :src="item.url"></image>
 				</view>
 			</view>
@@ -43,6 +43,7 @@
 		methods: {
 			getStyle(e) {
 				if (e > this.swiperList.length / 2) {
+					console.log('222',this.swiperList.length)
 					var right = this.swiperList.length - e
 					return {
 						transform: 'scale(' + (1 - right / 10) + ') translate(-' + (right * 9) + '%,0px)',
@@ -60,32 +61,38 @@
 			startMove(e) {
 				this.slideNote.x = e.changedTouches[0] ? e.changedTouches[0].pageX : 0;
 				this.slideNote.y = e.changedTouches[0] ? e.changedTouches[0].pageY : 0;
+				
 			},
 			endMove(e) {
 				const self = this;
 				var newList = JSON.parse(JSON.stringify(this.itemStyle))
-				if ((e.changedTouches[0].pageX - this.slideNote.x) < 0) {
-					// 向左滑动
-					var last = [newList.pop()]
-					newList = last.concat(newList)
-					
-					if(self.dotsIndex == newList.length-1){
-						self.dotsIndex = 0;
-					}else{
-						self.dotsIndex++;
+				console.log('e.changedTouches[0].pageX',e.changedTouches[0].pageX)
+				console.log('this.slideNote.x',this.slideNote.x)
+				if(e.changedTouches[0].pageX!=this.slideNote.x){
+					if ((e.changedTouches[0].pageX - this.slideNote.x) < 0) {
+						// 向左滑动
+						var last = [newList.pop()]
+						newList = last.concat(newList)
+						
+						if(self.dotsIndex == newList.length-1){
+							self.dotsIndex = 0;
+						}else{
+							self.dotsIndex++;
+						}
+					} else {
+						// 向右滑动
+						newList.push(newList[0])
+						newList.splice(0, 1)
+						
+						if(self.dotsIndex == 0){
+							self.dotsIndex = newList.length-1;
+						}else{
+							self.dotsIndex--;
+						}
 					}
-				} else {
-					// 向右滑动
-					newList.push(newList[0])
-					newList.splice(0, 1)
-					
-					if(self.dotsIndex == 0){
-						self.dotsIndex = newList.length-1;
-					}else{
-						self.dotsIndex--;
-					}
+					this.itemStyle = newList
 				}
-				this.itemStyle = newList
+				this.$emit('change', self.dotsIndex)
 			}
 		}
 	}

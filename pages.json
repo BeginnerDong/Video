@@ -90,6 +90,16 @@
 			}
         }
         ,{
+            "path" : "pages/upload/upload",
+            "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": "投视频"
+				    }
+				}
+			}
+        }
+        ,{
             "path" : "pages/updateClass/updateClass",
             "style" : {
 				"app-plus": {
@@ -301,5 +311,8 @@
 			"path": "", //启动页面，必选
 			"query": "" //启动参数，在页面的onLoad函数里面得到
 		}]
+	},
+	"app-plus": {
+	    "softinputNavBar": "none"
 	}
 }
