@@ -1,30 +1,38 @@
 <template>
-	<view class="px-5 line-h">
-		
-		<view class="font-80 one">您好,</view>
-		<view class="font-40">欢迎使用 tree hole</view>
-		
-		<image src="../../static/images/thelogin-img.png" class="loginImg"></image>
-		<view class="d-flex">
-			<view class="font-32 pr-1"  style="line-height: 70rpx;">账号</view>
-			<input class="font-32" placeholder="请输入" v-model="submitData.login_name" type="text"/>
+	<view >
+		<view class="p-aXY">
+			<image src="../../static/images/bg.jpg">
 		</view>
-		<view class="d-flex" style="margin-top:20rpx;">
-			<view class="font-32 pr-1"  style="line-height: 70rpx;">密码</view>
-			<input class="font-32" placeholder="请输入" v-model="submitData.password" type="password"/>
-		</view>
-		<view class="d-flex a-center j-sb mt-2">
-			<view class="btn100-c flex0 Mgb colorf" @click="submit">
-				
-				<view>登录</view>
-			</view>
+		<view class="px-5 line-h p-r">
+			<view class="font-80 one">您好,</view>
+			<view class="font-40">欢迎使用 tree hole</view>
 			
-			<view class="btn100-c flex0 Mgb colorf" @click="register">
-				
-				<view>注册</view>
-			</view>
+			<!-- <image src="../../static/images/thelogin-img.png" class="loginImg"></image> -->
+			
+			
 		</view>
 		
+		<view style="bottom: 0;position: fixed;width: 100%;">
+			<view class="d-flex px-5">
+				<view class="font-32 pr-1"  style="line-height: 70rpx;">账号</view>
+				<input class="font-32" placeholder="请输入" v-model="submitData.login_name" type="text"/>
+			</view>
+			<view class="d-flex px-5" style="margin-top:20rpx;">
+				<view class="font-32 pr-1"  style="line-height: 70rpx;">密码</view>
+				<input class="font-32" placeholder="请输入" v-model="submitData.password" type="password"/>
+			</view>
+			<view class="d-flex a-center j-sb" style="margin-top:100rpx;">
+				<view class="btn100-c flex0  colorf"  style="background-color: #8394FF;" @click="submit">
+					
+					<view >登录</view>
+				</view>
+				
+				<view class="btn100-c flex0  colorf" style="background-color: #9CBBFE;" @click="register">
+					
+					<view>注册</view>
+				</view>
+			</view>
+		</view>
 		<!-- <view class="btn100-c flex0" :class="choose==0?'Mgb colorf':'color9'" @click="chooseShow(0)">
 			<image src="../../static/images/thelogin-icon.png" class="wx-icon mr-2" v-if="choose==0"></image>
 			<image src="../../static/images/thelogin-icon2.png" class="wx-icon mr-2" v-else></image>
@@ -80,6 +88,11 @@
 							console.log(res);
 							uni.setStorageSync('user_token', res.token);
 							uni.setStorageSync('user_info', res.info);
+							if(res.info.info.deadline>Date.parse(new Date())/1000){
+								getApp().globalData.isMember = true
+							}else{
+								getApp().globalData.isMember = false
+							};
 							uni.redirectTo({
 								url: '/pages/index/index'
 							}) 
@@ -130,6 +143,6 @@
 <style scoped>
 .one{padding: 160rpx 0 44rpx;}
 .loginImg{width: 330rpx;height: 530rpx;margin: 80rpx auto 80rpx;}
-.btn100-c{margin-bottom: 30rpx;width: 300rpx;line-height: 80rpx;}
-input{height: 70rpx;border: 1px solid #e1e1e1;}
+.btn100-c{width: 50%;line-height: 80rpx;border-radius: 0;}
+input{height: 70rpx;}
 </style>

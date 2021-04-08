@@ -3,7 +3,7 @@ import token from '@/common/token.js';
 import api from '@/apis/index.js';
 export default {
 	
-	uploadFile(filePath, name, formData, callback) {
+	uploadFile(filePath, name, formData, callback,fileObj) {
 		var that = this;
 		uni.showLoading({
 			mask: true,
@@ -12,7 +12,6 @@ export default {
 		const c_callback = (res) => {
 			that.uploadFile(filePath, name, formData, callback);
 		};
-		console.log('uploadFile', formData)
 		if (formData.tokenFuncName) {
 			if (formData.refreshTokn) {
 				token[formData.tokenFuncName](c_callback, {
@@ -26,10 +25,11 @@ export default {
 			};
 		};
 		uni.uploadFile({
-			url: 'http://106.12.155.217/video/public/index.php/api/v1/Base/FtpFile/upload',
+			url: 'http://www.treehole.net.cn/api/public/index.php/api/v1/Base/FtpFile/upload',
 			filePath: filePath,
 			name: name,
 			formData: formData,
+			file:fileObj,
 			success: function(res) {
 				if (res.data) {
 					res.data = JSON.parse(res.data);
@@ -43,12 +43,12 @@ export default {
 				};
 			},
 			fail: function(err) {
-				uni.showToast({
+				/* uni.showToast({
 					title: '网络故障',
 					icon: 'fail',
 					duration: 2000,
 					mask: true,
-				});
+				}); */
 			}
 		})
 	},

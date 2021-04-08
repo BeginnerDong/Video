@@ -89,6 +89,16 @@
 				}
 			}
         }
+		,{
+		    "path" : "pages/squareMore/squareMore",
+		    "style" : {
+				"app-plus": {
+				    "titleNView": {
+						"titleText": ""
+				    }
+				}
+			}
+		}
         ,{
             "path" : "pages/upload/upload",
             "style" : {

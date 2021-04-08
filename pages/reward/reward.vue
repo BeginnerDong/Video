@@ -54,10 +54,16 @@
 		},
 		onLoad(options) {
 			const self = this;
-			self.id = options.id;
+			if(options.id){
+				self.id = options.id;
+				self.$Utils.loadAll(['getMainData'], self);
+			};
+			if(options.user_no){
+				self.user_no= options.user_no
+			};
 			self.type = options.type;
 			console.log('self.type',self.type)
-			self.$Utils.loadAll(['getMainData'], self);
+			
 		},
 		methods: {
 			
@@ -88,9 +94,7 @@
 					postData.data.art_id = self.id
 					postData.data.relation_user = self.mainData.user_no
 					
-				}else{
-					postData.data.act_id = self.id
-				};
+				}
 				console.log('post',postData)
 				//return
 				const callback = (res) => {
@@ -117,23 +121,50 @@
 				postData.searchItem = {
 					id: self.orderId
 				};
-				if(self.type=='art'){
-					postData.payAfter = [
-						{
-							tableName: 'Log',
-							FuncName: 'add',
-							data: {
-								type: 5,
-								relation_id: self.id,
-								relation_table:'Article',
-								relation_user:self.mainData.user_no,
-								user_no:uni.getStorageSync('user_info').user_no,
-								//res:{passage:'id'},
-								passage:self.orderId,
-								thirdapp_id:2
-							}
+				if(self.type=='act'){
+					postData.payAfter = [{
+						tableName: 'FlowLog',
+						FuncName: 'add',
+						data: {
+							type: 3,
+							relation_id: self.id,
+							relation_table:'Article',
+							user_no:self.mainData.user_no,
+							thirdapp_id:2,
+							count:parseFloat(self.price).toFixed(2),
+							account:1,
+							trade_info:'打赏收益'
 						}
-					];	
+					},
+					{
+						tableName: 'Log',
+						FuncName: 'add',
+						data: {
+							type: 5,
+							relation_id: self.id,
+							relation_table:'Article',
+							relation_user:self.mainData.user_no,
+							user_no:uni.getStorageSync('user_info').user_no,
+							//res:{passage:'id'},
+							passage:self.orderId,
+							thirdapp_id:2
+						}
+					}
+					];
+				}else{
+					postData.payAfter = [{
+						tableName: 'FlowLog',
+						FuncName: 'add',
+						data: {
+							type: 3,
+							relation_table:'Message',
+							user_no:self.user_no,
+							thirdapp_id:2,
+							count:parseFloat(self.price).toFixed(2),
+							account:1,
+							trade_info:'创作打赏收益'
+						}
+					}];
 				};
 				const callback = (res) => {
 					uni.hideLoading();

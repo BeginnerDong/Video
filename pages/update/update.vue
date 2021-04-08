@@ -1,9 +1,9 @@
 <template>
 	<view>
-		
+
 		<view class="p-3">
 			<textarea v-model="submitData.title" placeholder="添加合适的描述,作品能获得更多推荐~" />
-			
+
 			<view class="flexX">
 				<!-- <view class="bg-f7 b-e1 radius10 font-26 color9 flex4 image" @click="ViewImage('../../static/images/xiaoxi-img1.png')">
 					<image src="../../static/images/xiaoxi-img1.png" ></image>
@@ -42,7 +42,7 @@
 		<view class="px-3 py-2 bT-e1 p-fX bottom-0" @click="Utils.stopMultiClick(submit)">
 			<view class="btn80-c colorf Mgb">发布</view>
 		</view>
-
+		
 		
 	</view>
 </template>
@@ -77,6 +77,40 @@
 			}
 		},
 		methods: {
+			
+			upLoadVideo(type) {
+				const self = this;			
+				
+				const callback = (res) => {
+					console.log('res', res)
+					if (res.solely_code == 100000) {
+						self.submitData[type] = [];
+						self.submitData[type].push({url:res.info.url,type:'vedio'})
+						uni.hideLoading();
+					} else {
+						self.$Utils.showToast('网络故障', 'none')
+					}
+				};				
+				uni.chooseVideo({
+					count: 1,
+					success: function(res) {
+						var tempFilePath = res.tempFilePath;
+						console.log('res11',res)
+						
+						var file = res;
+						var ext = 'mp4';
+						console.log(callback)
+						self.$Utils.uploadFile(tempFilePath, 'file', {
+							tokenFuncName: 'getUserToken',ext:ext,md5:'md5',totalSize:file.size,start:0,chunkSize:file.size,originName:''
+						}, callback)
+						
+					},
+					fail: function(err) {
+						console.log(222)
+						uni.hideLoading();
+					},			
+				})			
+			},
 			
 			submit() {
 				const self = this;
@@ -128,37 +162,92 @@
 				self.$apis.articleAdd(postData, callback);
 			},
 			
+			test(){
+				const self = this;
+				uni.showLoading({
+					mask: true,
+					title: '上传中',
+				});
+				uni.chooseVideo({
+				    count: 1,
+				    success(res) {
+				        console.log(res);
+						let filePath = res.tempFilePaths
+						//进行上传操作
+						let Path = res.name
+						// callback方式，与promise方式二选一即可
+						uniCloud.uploadFile({
+							filePath: filePath,
+							cloudPath: Path,
+							success(c_res) {
+								console.log(c_res)
+								self.submitData['video'] = [];
+								self.submitData['video'].push({url:c_res.fileID,type:'vedio'})
+								uni.hideLoading();
+							},
+							fail(c_res) {
+								self.$Utils.showToast(JSON.stringify(c_res), 'none')
+							},
+						});
+				
+				    }
+				});
+			},
+			
 			upLoadVideo(type) {
 				const self = this;			
-				
-				const callback = (res) => {
-					console.log('res', res)
-					if (res.solely_code == 100000) {
-						self.submitData[type] = [];
-						self.submitData[type].push({url:res.info.url,type:'vedio'})
-						uni.hideLoading();
-					} else {
-						self.$Utils.showToast('网络故障', 'none')
-					}
-				};				
+				self.start = 0;
+					
 				uni.chooseVideo({
 					count: 1,
-					success: function(res) {
+					success: function(res) {	
 						var tempFilePath = res.tempFilePath;
-						console.log('res11',res)
-						
-						var file = res;
-						var ext = 'mp4';
-						console.log(callback)
-						self.$Utils.uploadFile(tempFilePath, 'file', {
-							tokenFuncName: 'getUserToken',ext:ext,md5:'md5',totalSize:file.size,start:0,chunkSize:file.size,originName:''
-						}, callback)
-						
+						self.obj = res.tempFile;
+						self.md5 = Date.parse(new Date());
+						console.log('res',res)
+						self.realUpload(self.obj,0,tempFilePath)
 					},
 					fail: function(err) {
+						console.log(222)
 						uni.hideLoading();
 					},			
 				})			
+			},
+			
+			realUpload(fileObj,start,tempFilePath){
+				const self = this;
+				self.chunkSize = 2*1024 * 1024;
+				console.log(fileObj)
+				var obj = fileObj.name.lastIndexOf(".");
+				self.ext = fileObj.name.substr(obj+1);
+				self.orginName = fileObj.name;
+				if (start >= fileObj.size) {
+				    return;
+				}
+				self.end = (start + self.chunkSize > fileObj.size) ? fileObj.size : (start + self.chunkSize);
+				// 将文件切块上传
+				self.start = start;
+				self.totalSize = fileObj.size;
+				
+				const callback = (res) => {
+					
+					
+					if(res.chunk_start){
+						
+						console.log(3333)
+						self.realUpload(self.obj,res.chunk_start,tempFilePath);
+					};
+					if (res.solely_code == 100000) {
+						self.submitData['video'] = [];
+						self.submitData['video'].push({url:res.info.url,type:'vedio'})
+						uni.hideLoading();
+					}
+				};	
+				
+				self.$Utils.uploadFile(tempFilePath, 'file', {
+					tokenFuncName: 'getUserToken',ext:self.ext,md5:self.md5,totalSize:self.totalSize,start:self.start,chunkSize:self.chunkSize,originName:self.orginName
+					
+				}, callback,self.obj.slice(start, self.end))
 			},
 			
 			upLoadImg(type) {

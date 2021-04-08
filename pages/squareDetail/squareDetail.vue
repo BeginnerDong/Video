@@ -5,7 +5,8 @@
 			<video id="myVideo"
 			objectFit="cover" 
 			@play="play"
-			:src="mainData.bannerImg&&mainData.bannerImg[0]?mainData.bannerImg[0].url:''" controls v-if="mainData.bannerImg&&mainData.bannerImg.length>0"></video>
+			:src="mainData.allMessage&&mainData.allMessage[index]&&mainData.allMessage[index].mainImg&&mainData.allMessage[index].mainImg[0]
+			?mainData.allMessage[index].mainImg[0].url:''" controls v-if="mainData.allMessage&&mainData.allMessage[index]&&mainData.allMessage[index].mainImg&&mainData.allMessage[index].mainImg.length>0"></video>
 			<view class="p-aXY" v-if="mainData.bannerImg&&mainData.bannerImg.length==0">
 				<image :src="mainData.mainImg&&mainData.mainImg[0]?mainData.mainImg[0].url:''" mode=""></image>
 			</view>
@@ -69,7 +70,7 @@
 		</view>
 		<!-- 已报名 -->
 		<view class="px-3 py-2 bT-e1 p-fX bottom-0" 
-		@click="Router.navigateTo({route:{path:'/pages/reward/reward?id='+mainData.id+'&type=act'}})"
+		@click="Router.navigateTo({route:{path:'/pages/reward/reward?user_no='+mainData.allMessage[index].user_no+'&type=message'}})"
 		v-if="mainData.bannerImg&&mainData.bannerImg.length>0">
 			<view class="btn80-c colorf Mgb">打赏</view>
 		</view>
@@ -93,13 +94,16 @@
 				type:0,
 				mainData:{},
 				Utils:this.$Utils,
-				now:''
+				now:'',
+				index:'',
+				isMember:getApp().globalData.isMember
 			}
 		},
 		onLoad(options) {
 			const self = this;
 			self.now = Date.parse(new Date());
 			self.id = options.id;
+			self.index = options.index;
 			self.$Utils.loadAll(['getMainData'], self);
 		},
 		onShow() {
@@ -112,9 +116,15 @@
 			
 			play(){
 				const self = this;
+				if(self.mainData.user_no==uni.getStorageSync('user_info').user_no||self.mainData.allMessage[self.index].user_no==uni.getStorageSync('user_info').user_no){
+					self.videoContext.play();
+					return
+				};
 				//self.videoContext = uni.createVideoContext('myVideo')
-				if(self.mainData.order.length==0){
-					self.Router.navigateTo({route:{path:'/pages/reward/reward?id='+self.mainData.id+'&type=act'}})
+				if(!self.isMember){
+					self.videoContext.pause();
+					console.log(223)
+					self.Router.navigateTo({route:{path:'/pages/VIP/VIP'}})
 				}else{
 					self.videoContext.play()
 				}
@@ -128,6 +138,20 @@
 					id:self.id
 				};
 				postData.getAfter = {
+					allMessage:{
+						token:uni.getStorageSync('user_token'),
+						tableName:'Message',
+						middleKey:'id',
+						key:'relation_id',
+						searchItem:{
+							status:1,
+							type:1,
+							//user_no:uni.getStorageSync('user_info').user_no
+							user_type:0,
+							behavior:1
+						},
+						condition:'='
+					},
 					message:{
 						token:uni.getStorageSync('user_token'),
 						tableName:'Message',

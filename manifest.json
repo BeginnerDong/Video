@@ -17,6 +17,9 @@
         "modules" : {
             "VideoPlayer" : {}
         },
+        "compatible" : {
+            "ignoreVersion" : true //true表示忽略版本检查提示框，HBuilderX1.9.0及以上版本支持  
+        },
         /* 模块配置 */
         "distribute" : {
             /* 应用发布信息 */
@@ -84,7 +87,8 @@
                     }
                 }
             }
-        }
+        },
+        "nativePlugins" : {}
     },
     /* SDK配置 */
     "quickapp" : {},

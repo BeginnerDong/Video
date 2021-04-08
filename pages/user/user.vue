@@ -9,14 +9,17 @@
 		<view class="flex mx-3 bB-e1 py-3">
 			<image :src="userInfoData.mainImg&&userInfoData.mainImg[0]?userInfoData.mainImg[0].url:'../../static/images/about-img.png'" class="wh120 radius-5"></image>
 			<view class="flex-1 pl-2">
-				<view class="flex pb-1">
+				<view class="flex">
 					<view class="font-32 pr-1">{{userInfoData.user_no&&userInfoData.name?userInfoData.name:'用户'+user_no}}</view>
 					<view class="font-20 vip flex0" v-if="userInfoData.deadline>now">
 						<image src="../../static/images/my-icon1.png" class="vip-icon mr"></image>
-						<view>会员</view>
+						<view style="line-height: 1;padding-top:8rpx;">会员</view>
+						
 					</view>
+					
 				</view>
-				<view class="font-22 color9 avoidOverflow2">{{userInfoData.passage1?userInfoData.passage1:''}}</view>
+				<view class="font-22 color9 avoidOverflow1 pt-1">{{userInfoData.passage1?userInfoData.passage1:''}}</view>
+				<view class="font-20 pt-1" v-if="userInfoData.deadline>now">会员到期日：{{userInfoData.deadline?Utils.timeto(userInfoData.deadline*1000,'ymd'):''}}</view>
 			</view>
 		</view>
 		
@@ -82,7 +85,7 @@
 							<view class="font-32 pr-1" v-cloak>{{userInfoData.name?userInfoData.name:'用户'+user_no}}</view>
 							<view class="font-20 vip flex0" v-if="userInfoData.deadline>now">
 								<image src="../../static/images/my-icon1.png" class="vip-icon mr"></image>
-								<view>会员</view>
+								<view style="line-height: 1;padding-top:8rpx;">会员</view>
 							</view>
 						</view>
 						<view class="font-22 color9 avoidOverflow2">{{userInfoData.passage1?userInfoData.passage1:''}}</view>
@@ -160,7 +163,8 @@
 		},
 		onLoad(options) {
 			const self = this;
-			var now = Date.parse(new Date())/1000;
+			self.now = Date.parse(new Date())/1000;
+			
 			self.paginate = self.$Utils.cloneForm(self.$AssetsConfig.paginate);
 			self.$Utils.loadAll(['getUserInfoData','getMainData'], self);
 		},
@@ -309,8 +313,8 @@
 
 <style scoped>
 .cd-icon{width: 44rpx;height: 34rpx;}
-.vip-icon{width: 22rpx;height: 16rpx;}
-.vip{line-height: 30rpx;background-color: #FFE650;width: 90rpx;border-radius: 15rpx;}
+.vip-icon{width: 40rpx;height: 30rpx;}
+.vip{height: 44rpx;background-color: #FFE650;width: 120rpx;border-radius: 15rpx;}
 
 .maskBox{width: 650rpx;}
 .ye{background-image: linear-gradient(to bottom,#3A3A3A,#141414);}

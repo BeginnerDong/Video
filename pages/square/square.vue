@@ -16,7 +16,7 @@
 		>
 			<view class="flex" 
 			:data-id = "item.id"
-			@click="Router.navigateTo({route:{path:'/pages/squareDetail/squareDetail?id='+$event.currentTarget.dataset.id}})"
+			@click="Router.navigateTo({route:{path:'/pages/squareMore/squareMore?id='+$event.currentTarget.dataset.id}})"
 			>
 				<image mode="aspectFill" :src="item.mainImg&&item.mainImg[0]?item.mainImg[0].url:''" class="wh240 radius10"></image>
 				<view class="pl-3 py-2 flex-1 flex5 txtBox">
@@ -34,7 +34,7 @@
 				@click="Router.navigateTo({route:{path:'/pages/upload/upload?id='+$event.currentTarget.dataset.id}})">投视频</view>
 				<view class="btn70-c Mgb colorf"
 				 :data-id = "item.id"
-				 @click="Router.navigateTo({route:{path:'/pages/squareDetail/squareDetail?id='+$event.currentTarget.dataset.id}})"
+				 @click="Router.navigateTo({route:{path:'/pages/squareMore/squareMore?id='+$event.currentTarget.dataset.id}})"
 				 v-if="item.bannerImg.length>0">去观看</view>
 				<view class="btn70-c bg-f5 color6" v-if="item.end_time>now&&item.bannerImg&&item.bannerImg.length==0&&item.message&&item.message.length>0">已报名</view>
 				<view class="btn70-c bg-f5 color6" v-if="item.end_time<now&&item.bannerImg&&item.bannerImg.length==0">已结束</view>
